@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Premium Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>💰 Finance</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li>Records</li>
+            <li>Analytics</li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+        <!-- NAVBAR -->
+        <div class="topbar">
+            <h3>Dashboard</h3>
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards">
+            <div class="card income">
+                <h4>Total Income</h4>
+                <p id="income">0</p>
+            </div>
+
+            <div class="card expense">
+                <h4>Total Expense</h4>
+                <p id="expense">0</p>
+            </div>
+        </div>
+
+        <!-- CHART -->
+        <div class="chart-box">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <!-- FORM -->
+        {% if role != 'viewer' %}
+        <div class="form-box">
+            <h3>Add Record</h3>
+            <input type="number" id="amount" placeholder="Amount">
+            <input type="text" id="category" placeholder="Category">
+
+            <select id="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+
+            <button onclick="addRecord()">Add Record</button>
+        </div>
+        {% endif %}
+
+        <!-- TABLE -->
+        <div class="table-box">
+            <h3>Records</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="recordsTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let chart;
+
+function loadRecords() {
+    fetch('/records/')
+    .then(res => res.json())
+    .then(data => {
+
+        let table = document.getElementById("recordsTable");
+        table.innerHTML = "";
+
+        let income = 0;
+        let expense = 0;
+
+        data.forEach(r => {
+            table.innerHTML += `
+            <tr>
+                <td>${r.id}</td>
+                <td>${r.category}</td>
+                <td>${r.amount}</td>
+                <td>${r.type}</td>
+                <td><button onclick="deleteRecord(${r.id})">Delete</button></td>
+            </tr>
+            `;
+
+            if (r.type === "income") income += r.amount;
+            else expense += r.amount;
+        });
+
+        document.getElementById("income").innerText = income;
+        document.getElementById("expense").innerText = expense;
+
+        drawChart(income, expense);
+    });
+}
+
+function addRecord() {
+    let amount = document.getElementById("amount").value;
+    let category = document.getElementById("category").value;
+    let type = document.getElementById("type").value;
+
+    fetch('/records/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount, category, type })
+    }).then(() => loadRecords());
+}
+
+function deleteRecord(id) {
+    fetch('/records/' + id, { method: 'DELETE' })
+    .then(() => loadRecords());
+}
+
+function drawChart(income, expense) {
+    const ctx = document.getElementById('myChart');
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Income', 'Expense'],
+            datasets: [{
+                data: [income, expense],
+                backgroundColor: ['#00ff9f', '#ff4d6d']
+            }]
+        }
+    });
+}
+
+loadRecords();
+</script>
+
+</body>
+</html>

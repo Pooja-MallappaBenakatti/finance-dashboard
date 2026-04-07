@@ -1,0 +1,362 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ================= LOGIN PAGE ================= */
+
+.login-page {
+    height: 100vh;
+}
+
+/* Layout */
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Left side */
+.login-left {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-left h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Right side */
+.login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f9;
+}
+
+/* Login card */
+.login-card {
+    width: 320px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Inputs */
+.input-group {
+    position: relative;
+    margin: 20px 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: gray;
+    transition: 0.3s;
+    background: white;
+    padding: 0 5px;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: -8px;
+    font-size: 12px;
+    color: #667eea;
+}
+
+/* Button */
+.login-card button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.login-card button:hover {
+    background: #5a67d8;
+}
+
+/* ================= DASHBOARD ================= */
+
+body:not(.login-page) {
+    background: #1e1e2f;
+    color: white;
+}
+
+/* Layout */
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: #111827;
+    padding: 20px;
+    color: white;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.sidebar li:hover,
+.sidebar .active {
+    background: #1f2937;
+    border-radius: 6px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.topbar input {
+    padding: 8px;
+    width: 200px;
+}
+
+/* Right */
+.top-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Notification */
+.notification {
+    position: relative;
+    cursor: pointer;
+}
+
+.badge {
+    background: red;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
+.notif-box {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: #2a2a40;
+    padding: 10px;
+    border-radius: 8px;
+    width: 150px;
+}
+
+.notif-box.show {
+    display: block;
+}
+
+/* Profile */
+.profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: #2a2a40;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.profile-menu.show {
+    display: block;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+}
+
+.income { background: #00c896; }
+.expense { background: #ff4d6d; }
+
+/* Chart */
+.chart-box {
+    background: #2a2a40;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+/* Table */
+.table-box {
+    background: #2a2a40;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #111827;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    text-align: center;
+}
+
+/* Buttons */
+button {
+    background: #ff4d6d;
+    border: none;
+    padding: 6px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* ================= LIGHT MODE ================= */
+
+.light-mode {
+    background: #f4f6f9;
+    color: black;
+}
+
+.light-mode .main {
+    background: #f4f6f9;
+    color: black;
+}
+
+.light-mode .sidebar {
+    background: #ffffff;
+    color: black;
+}
+
+.light-mode .card {
+    color: black;
+}
+
+.light-mode .chart-box,
+.light-mode .table-box {
+    background: white;
+}
+
+.light-mode th {
+    background: #ddd;
+    color: black;
+}
+
+/* ================= TOGGLE SWITCH ================= */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background: #444;
+    border-radius: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.switch input:checked + .slider {
+    background: #00c896;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(24px);
+}
